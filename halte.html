@@ -42,8 +42,8 @@
             <li class="dropdown">
               <a href="javascript:void(0)" class="dropbtn">Menu</a>
               <div class="dropdown-content">
-                <a href="about.html">About</a>
-                <a href="service.html">Service</a>
+                <a href="profil_instansi.html">profil instansi</a>
+                <a href="profil_penulis.html">profil penulis</a>
                 <a href="contact.html">Contact</a>
               </div>
             </li>
@@ -53,10 +53,9 @@
                 <a href="kemacetan.html">Lokasi Kemacetan</a>
                 <a href="kecelakaan.html">Lokasi Rawan Kecelakaan</a>
                 <a href="trayek.html">Trayek Angkutan Kota</a>
-				<a href="halte.html">Halte Kota Serang</a>
+                <a href="halte.html">Halte Kota Serang</a>
               </div>
             </li>
-            <!-- li><a href="index_maps.html">Maps</a></li -->
           </ul>
         </div>
         <div class="media-icons">
@@ -67,25 +66,22 @@
 <div id="map" style="width: 100%; height: 100%;"></div>
 <script>
 
-	const map = L.map('map').setView([-6.106283, 106.175724], 13);
+	const map = L.map('map').setView([-6.130983, 106.175724], 12);
 
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
 
-	const marker = L.marker([-6.106283, 106.175724]).addTo(map)
-		.bindPopup('<b>DISHUB Kota Serang!</b><br />ini adalah kantor dinas perhubungan kota Serang');
-		
 	$.get('data_halte.csv', function(csvString) {
 		var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
 
 		for (var i in data) {
 			var row = data[i];
 
-			var marker = L.marker([row.Latitude, row.Longitude], {
+			var marker = L.marker([row.Lat, row.Long], {
 				opacity: 1
-				}).bindPopup(row.Ruas_Jalan + '<br />' + row.Titik_Lokasi);
+				}).bindPopup(row.Ruas_Jalan + '<br />' + row.Nama_Halte);
       
 			marker.addTo(map);
 		}
